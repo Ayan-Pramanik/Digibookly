@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String   @unique
+  password       String
+  emailVerified  Boolean  @default(false)
+  role           String   @default("user")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  orders         Order[]
+}
+
+model Book {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  author         String
+  genre          String
+  price          Float
+  coverImageUrl  String
+  fileUrl        String
+  sampleUrl      String?
+  ratings        Float    @default(0)
+  totalDownloads Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Order {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id])
+  items         Json
+  totalAmount   Float
+  paymentStatus String
+  paymentId     String
+  createdAt     DateTime @default(now())
+}
+
+model Wishlist {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String
+  bookIds String[] // Array of Book IDs
+}
+
+model Payment {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String
+  orderId            String
+  provider           String
+  providerPaymentId  String
+  amount             Float
+  status             String
+  createdAt          DateTime @default(now())
+}
