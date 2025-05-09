@@ -89,32 +89,32 @@ Perfect — with your backend initialized, Prisma and Zod set up, and routing in
 ### ✅ 2. **Book Management (Admin)**
 
 * [ ] 📥 Upload book (PDF + metadata)
-* [ ] 📚 Get all books (with filters: genre, search, etc.)
-* [ ] 🛠️ Update/Delete book (admin only)
+* [x] 📚 Get all books (with filters: genre, search, etc.)
+* [x] 🛠️ Update/Delete book (admin only)
 
 ---
 
 ### ✅ 3. **Shopping Features (User)**
 
-* [ ] 🧺 Add to cart / Remove / View
-* [ ] ❤️ Wishlist functionality
-* [ ] 🛒 Checkout endpoint
-* [ ] 💳 Integrate payment gateway (Stripe first)
+* [x] 🧺 Add to cart / Remove / View
+* [x] ❤️ Wishlist functionality
+* [x] 🛒 Checkout endpoint
+* [x] 💳 Integrate payment gateway (Stripe first)
 
 ---
 
 ### ✅ 4. **Digital Delivery**
 
-* [ ] 📩 Generate order and store it
-* [ ] 📥 Give user access to download books
-* [ ] 🧾 Email receipt with link (using nodemailer)
+* [x] 📩 Generate order and store it
+* [x] 📥 Give user access to download books
+* [x] 🧾 Email receipt with link (using nodemailer)
 
 ---
 
 ### ✅ 5. **Admin Panel APIs**
 
-* [ ] 📊 Analytics: total revenue, top-selling books
-* [ ] 👥 User management: reset password, revoke access
+* [x] 📊 Analytics: total revenue, top-selling books
+* [x] 👥 User management: reset password, revoke access
 
 ---
 
@@ -192,3 +192,29 @@ CRUD for books
 View all users/orders
 
 Analytics dashboard (downloads, revenue)
+
+
+
+
+🔁 Flow Diagram for Payment
+User pays via Razorpay
+         ↓
+verifyCheckoutPayment (checkout.controller.ts)
+         ↓
+prisma.order.create() → stores userId + bookIds
+         ↓
+generateInvoicePDF.ts → creates invoice PDF buffer
+         ↓
+sendInvoiceEmail.ts → sends invoice with PDF as attachment
+
+
+
+
+
+
+
+Prisma Commands
+-------------------
+npx prisma format
+npx prisma generate
+npx prisma db push

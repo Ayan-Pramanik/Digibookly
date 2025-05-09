@@ -6,7 +6,7 @@ import { isAdmin } from '../middlewares/isAdmin'
 const router = express.Router()
 
 router.get('/', getBooks)
-router.get('/:id', getBookById)
+router.get('/:id', protect, getBookById)
 router.patch('/:id', protect, isAdmin, updateBook)
 router.delete('/:id', protect, isAdmin, deleteBook)
 

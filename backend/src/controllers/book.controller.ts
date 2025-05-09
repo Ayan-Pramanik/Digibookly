@@ -3,7 +3,7 @@ import { prisma } from '../lib/prisma'
 import { ObjectId } from 'bson'
 
 export const getBooks = async (req: Request, res: Response): Promise<any> => {
-  const { genre, author, minPrice, maxPrice } = req.query
+  const { genre, author, minPrice, maxPrice } = req.body
 
   try {
     const books = await prisma.book.findMany({
